@@ -1,23 +1,21 @@
-from flask import jsonify
+from flask import request
 
 from hello_world import app
+from hello_world.formater import PLAIN, SUPPORTED, get_formatted
+
+
+moje_imie = "NataliaD"
+msg = "Hello World!"
 
 
 @app.route("/")
 def index():
-    return "Hello, World!"
+    output = request.args.get("output")
+    if not output:
+        output = PLAIN
+    return get_formatted(msg, moje_imie, output.lower())
 
 
-@app.route("/hello")
-def hello():
-    return "Hello, NataliaD!"
-
-
-@app.route("/output")
-def output():
-    return "plain"
-
-
-@app.route("/output-json")
-def output_json():
-    return jsonify({"message": "Hello, World!"})
+@app.route("/outputs")
+def supported_output():
+    return ", ".join(SUPPORTED)
