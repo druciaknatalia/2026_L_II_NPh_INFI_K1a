@@ -15,7 +15,7 @@ def hello():
 
 @app.route("/output")
 def output():
-    return "Hello from output!"
+    return "plain"
 
 
 @app.route("/output-json")
